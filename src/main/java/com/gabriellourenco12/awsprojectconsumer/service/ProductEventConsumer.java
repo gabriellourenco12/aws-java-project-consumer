@@ -26,9 +26,9 @@ public class ProductEventConsumer {
 
     @JmsListener(destination = "${aws.sqs.queue.product.events.name}")
     public void receiveProductEvent(TextMessage textMessage) throws IOException, JMSException {
-        log.info("Received message: {}", textMessage.getText());
-
         SnsMessage snsMessage = objectMapper.readValue(textMessage.getText(), SnsMessage.class);
+
+        log.info("Message received - Id: {} - ", snsMessage.getMessageId());
 
         Envelope envelope = objectMapper.readValue(snsMessage.getMessage(), Envelope.class);
 
