@@ -3,34 +3,47 @@ package com.gabriellourenco12.awsprojectconsumer.model;
 import com.amazonaws.services.dynamodbv2.datamodeling.*;
 import com.gabriellourenco12.awsprojectconsumer.enums.EventType;
 import lombok.Getter;
-import lombok.NoArgsConstructor;
 import lombok.Setter;
 import org.springframework.data.annotation.Id;
 
-@Getter
-@Setter
 @DynamoDBTable(tableName = "product-events")
-@NoArgsConstructor
 public class ProductEventLog {
+
+    public ProductEventLog() {}
 
     @Id
     private ProductEventKey productEventKey;
 
+    @Getter
+    @Setter
     @DynamoDBTypeConvertedEnum
     @DynamoDBAttribute(attributeName = "eventType")
     private EventType eventType;
 
+    @Getter
+    @Setter
     @DynamoDBAttribute(attributeName = "productId")
     private long productId;
 
+    @Getter
+    @Setter
     @DynamoDBAttribute(attributeName = "username")
     private String username;
 
+    @Getter
+    @Setter
     @DynamoDBAttribute(attributeName = "timestamp")
     private long timestamp;
 
+    @Getter
+    @Setter
     @DynamoDBAttribute(attributeName = "ttl")
     private long ttl;
+
+    @Getter
+    @Setter
+    @DynamoDBAttribute(attributeName = "messageId")
+    private String messageId;
 
     @DynamoDBHashKey(attributeName = "pk")
     public String getPk() {

@@ -8,7 +8,6 @@ import com.gabriellourenco12.awsprojectconsumer.model.SnsMessage;
 import com.gabriellourenco12.awsprojectconsumer.repository.ProductEventLogRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jms.annotation.JmsListener;
 import org.springframework.stereotype.Service;
 
@@ -36,11 +35,11 @@ public class ProductEventConsumer {
         ProductEvent productEvent = objectMapper.readValue(envelope.getData(), ProductEvent.class);
         log.info("Product event received - Event: {} - ProductId: {} - ", envelope.getEventType(), productEvent.getProductId());
 
-        ProductEventLog productEventLog = buildProductEventLog(envelope, productEvent);
+        ProductEventLog productEventLog = buildProductEventLog(envelope, productEvent, snsMessage);
         productEventLogRepository.save(productEventLog);
     }
 
-    private ProductEventLog buildProductEventLog(Envelope envelope, ProductEvent productEvent) {
+    private ProductEventLog buildProductEventLog(Envelope envelope, ProductEvent productEvent, SnsMessage snsMessage) {
         long timestamp = Instant.now().toEpochMilli();
 
         ProductEventLog productEventLog = new ProductEventLog();
@@ -51,6 +50,7 @@ public class ProductEventConsumer {
         productEventLog.setUsername(productEvent.getUsername());
         productEventLog.setTimestamp(timestamp);
         productEventLog.setTtl(Instant.now().plus(Duration.ofMinutes(10)).getEpochSecond());
+        productEventLog.setMessageId(snsMessage.getMessageId());
 
         return productEventLog;
     }
