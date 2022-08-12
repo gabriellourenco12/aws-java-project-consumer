@@ -53,10 +53,15 @@ public class DynamoDBConfigLocal {
         keySchema.add(new KeySchemaElement().withAttributeName("sk")
                 .withKeyType(KeyType.RANGE));
 
+        ProvisionedThroughput provisionedThroughput = new ProvisionedThroughput()
+                .withReadCapacityUnits(1L)
+                .withWriteCapacityUnits(1L);
+
         CreateTableRequest request = new CreateTableRequest()
                 .withTableName("product-events")
                 .withKeySchema(keySchema)
                 .withAttributeDefinitions(attributeDefinitions)
+                .withProvisionedThroughput(provisionedThroughput)
                 .withBillingMode(BillingMode.PAY_PER_REQUEST);
 
         dynamoDB.getTable("product-events").delete();
