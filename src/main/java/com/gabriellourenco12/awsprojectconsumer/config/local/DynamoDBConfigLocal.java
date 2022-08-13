@@ -12,7 +12,8 @@ import com.amazonaws.services.dynamodbv2.document.DynamoDB;
 import com.amazonaws.services.dynamodbv2.document.Table;
 import com.amazonaws.services.dynamodbv2.model.*;
 import com.gabriellourenco12.awsprojectconsumer.repository.ProductEventLogRepository;
-import lombok.extern.slf4j.Slf4j;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.socialsignin.spring.data.dynamodb.repository.config.EnableDynamoDBRepositories;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
@@ -26,12 +27,14 @@ import java.util.List;
 @Configuration
 @EnableDynamoDBRepositories(basePackageClasses = ProductEventLogRepository.class)
 @Profile("local")
-@Slf4j
 public class DynamoDBConfigLocal {
+
+    private static final Logger log = LoggerFactory.getLogger(
+            DynamoDBConfigLocal.class);
 
     private final AmazonDynamoDB amazonDynamoDB;
 
-    public DynamoDBConfigLocal() {
+    public DynamoDBConfigLocal() throws InterruptedException {
         this.amazonDynamoDB = AmazonDynamoDBClient.builder()
                 .withEndpointConfiguration(
                         new AwsClientBuilder.EndpointConfiguration("http://localhost:4566",
@@ -53,24 +56,21 @@ public class DynamoDBConfigLocal {
         keySchema.add(new KeySchemaElement().withAttributeName("sk")
                 .withKeyType(KeyType.RANGE));
 
-        ProvisionedThroughput provisionedThroughput = new ProvisionedThroughput()
-                .withReadCapacityUnits(1L)
-                .withWriteCapacityUnits(1L);
-
         CreateTableRequest request = new CreateTableRequest()
                 .withTableName("product-events")
                 .withKeySchema(keySchema)
                 .withAttributeDefinitions(attributeDefinitions)
-                .withProvisionedThroughput(provisionedThroughput)
                 .withBillingMode(BillingMode.PAY_PER_REQUEST);
 
-        dynamoDB.getTable("product-events").delete();
-        Table table = dynamoDB.createTable(request);
-
         try {
+            Table table = dynamoDB.createTable(request);
+            log.info("Table status: " + table.getDescription().getTableStatus());
             table.waitForActive();
-        } catch (InterruptedException e) {
-            log.error(e.getMessage());
+        } catch (ResourceInUseException e) {
+            log.info("Table already exists.");
+            dynamoDB.getTable("product-events").delete();
+            Table table = dynamoDB.createTable(request);
+            table.waitForActive();
         }
     }
 

@@ -6,8 +6,9 @@ import com.gabriellourenco12.awsprojectconsumer.model.ProductEvent;
 import com.gabriellourenco12.awsprojectconsumer.model.ProductEventLog;
 import com.gabriellourenco12.awsprojectconsumer.model.SnsMessage;
 import com.gabriellourenco12.awsprojectconsumer.repository.ProductEventLogRepository;
-import lombok.RequiredArgsConstructor;
-import lombok.extern.slf4j.Slf4j;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jms.annotation.JmsListener;
 import org.springframework.stereotype.Service;
 
@@ -18,13 +19,16 @@ import java.time.Duration;
 import java.time.Instant;
 
 @Service
-@Slf4j
-@RequiredArgsConstructor
 public class ProductEventConsumer {
 
-    private final ObjectMapper objectMapper;
-
+    private static final Logger log = LoggerFactory.getLogger(ProductEventConsumer.class);
+    private final ObjectMapper objectMapper = new ObjectMapper();
     private final ProductEventLogRepository productEventLogRepository;
+
+    @Autowired
+    public ProductEventConsumer(ProductEventLogRepository productEventLogRepository) {
+        this.productEventLogRepository = productEventLogRepository;
+    }
 
     @JmsListener(destination = "${aws.sqs.queue.product.events.name}")
     public void receiveProductEvent(TextMessage textMessage) throws IOException, JMSException {

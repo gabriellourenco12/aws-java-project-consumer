@@ -1,11 +1,7 @@
 package com.gabriellourenco12.awsprojectconsumer.model;
 
 import com.gabriellourenco12.awsprojectconsumer.enums.EventType;
-import lombok.Getter;
-import lombok.Setter;
 
-@Getter
-@Setter
 public class ProductEventLogDto {
 
     private final String code;
@@ -22,5 +18,29 @@ public class ProductEventLogDto {
         this.username = productEventLog.getUsername();
         this.timestamp = productEventLog.getTimestamp();
         this.messageId = productEventLog.getMessageId();
+    }
+
+    public String getCode() {
+        return code;
+    }
+
+    public EventType getEventType() {
+        return eventType;
+    }
+
+    public long getProductId() {
+        return productId;
+    }
+
+    public String getUsername() {
+        return username;
+    }
+
+    public long getTimestamp() {
+        return timestamp;
+    }
+
+    public String getMessageId() {
+        return messageId;
     }
 }
