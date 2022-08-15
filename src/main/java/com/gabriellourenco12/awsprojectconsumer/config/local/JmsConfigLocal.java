@@ -21,9 +21,6 @@ import javax.jms.Session;
 @Profile("local")
 public class JmsConfigLocal {
 
-    @Value("${aws.region}")
-    private String awsRegion;
-
     private SQSConnectionFactory sqsConnectionFactory;
 
     @Bean

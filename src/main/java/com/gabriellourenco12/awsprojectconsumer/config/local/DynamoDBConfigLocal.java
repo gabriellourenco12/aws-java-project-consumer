@@ -4,7 +4,6 @@ import com.amazonaws.auth.DefaultAWSCredentialsProviderChain;
 import com.amazonaws.client.builder.AwsClientBuilder;
 import com.amazonaws.regions.Regions;
 import com.amazonaws.services.dynamodbv2.AmazonDynamoDB;
-import com.amazonaws.services.dynamodbv2.AmazonDynamoDBClient;
 import com.amazonaws.services.dynamodbv2.AmazonDynamoDBClientBuilder;
 import com.amazonaws.services.dynamodbv2.datamodeling.DynamoDBMapper;
 import com.amazonaws.services.dynamodbv2.datamodeling.DynamoDBMapperConfig;
@@ -15,7 +14,6 @@ import com.gabriellourenco12.awsprojectconsumer.repository.ProductEventLogReposi
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.socialsignin.spring.data.dynamodb.repository.config.EnableDynamoDBRepositories;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Primary;
@@ -35,7 +33,7 @@ public class DynamoDBConfigLocal {
     private final AmazonDynamoDB amazonDynamoDB;
 
     public DynamoDBConfigLocal() throws InterruptedException {
-        this.amazonDynamoDB = AmazonDynamoDBClient.builder()
+        this.amazonDynamoDB = AmazonDynamoDBClientBuilder.standard()
                 .withEndpointConfiguration(
                         new AwsClientBuilder.EndpointConfiguration("http://localhost:4566",
                                 Regions.US_EAST_1.getName()))
@@ -74,9 +72,6 @@ public class DynamoDBConfigLocal {
         }
     }
 
-    @Value("${aws.region}")
-    private String awsRegion;
-
     @Bean
     @Primary
     public DynamoDBMapperConfig dynamoDBMapperConfig() {
@@ -87,7 +82,9 @@ public class DynamoDBConfigLocal {
     @Primary
     public AmazonDynamoDB amazonDynamoDB() {
         return AmazonDynamoDBClientBuilder.standard()
-                .withRegion(Regions.fromName(awsRegion))
+                .withEndpointConfiguration(
+                        new AwsClientBuilder.EndpointConfiguration("http://localhost:4566",
+                                Regions.US_EAST_1.getName()))
                 .withCredentials(new DefaultAWSCredentialsProviderChain())
                 .build();
     }
