@@ -10,7 +10,7 @@
     </parent>
     <groupId>gabriellourenco</groupId>
     <artifactId>aws-project-consumer</artifactId>
-    <version>1.4.0</version>
+    <version>1.5.0</version>
     <name>aws-project-consumer</name>
     <description>aws-project-consumer</description>
     <properties>
