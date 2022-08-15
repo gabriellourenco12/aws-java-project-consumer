@@ -10,7 +10,7 @@
     </parent>
     <groupId>gabriellourenco</groupId>
     <artifactId>aws-project-consumer</artifactId>
-    <version>1.3.0</version>
+    <version>1.4.0</version>
     <name>aws-project-consumer</name>
     <description>aws-project-consumer</description>
     <properties>
@@ -33,7 +33,7 @@
             <dependency>
                 <groupId>com.amazonaws</groupId>
                 <artifactId>aws-java-sdk-sqs</artifactId>
-                <version>1.11.887</version>
+                <version>1.12.276</version>
             </dependency>
         <dependency>
             <groupId>org.springframework</groupId>
@@ -48,7 +48,7 @@
         <dependency>
             <groupId>com.amazonaws</groupId>
             <artifactId>aws-java-sdk-dynamodb</artifactId>
-            <version>1.11.887</version>
+            <version>1.12.276</version>
         </dependency>
         <dependency>
             <groupId>io.github.boostchicken</groupId>
