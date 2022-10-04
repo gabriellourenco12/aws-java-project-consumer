@@ -24,10 +24,10 @@
     <img src="images/logo.png" alt="Logo" width="80" height="80">
   </a>
 
-<h3 align="center">AWS Project</h3>
+<h3 align="center">AWS Project Consumer</h3>
 
   <p align="center">
-    Product controller that stores sales in a database and sends an email to the customer.
+    Project consumer that read logs and events from a SQS filled by the previous application and saves them in a NoSQL database (Dynamo DB).
     <br />
     <a href="https://github.com/gabriellourenco12/aws-java-project"><strong>Explore the docs »</strong></a>
     <br />
