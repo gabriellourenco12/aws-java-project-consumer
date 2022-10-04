@@ -87,7 +87,7 @@ This project was developed during the AWS Developer Associate course. The projec
 * [![AWS][Aws.amazon]][Aws-url]
 * [![Docker][Docker.com]][Docker-url]
 * [![Redis][Redis.io]][Redis-url]
-* [![MariaDB][MariaDB.org]][MariaDB-url]
+* [![DynamoDB][DynamoDB.org]][DynamoDB-url]
 * [![Maven][Maven.Apache]][Maven-url]
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
@@ -218,7 +218,7 @@ Project Link: [https://github.com/gabriellourenco12/aws-java-project](https://gi
 [Docker-url]: https://www.docker.com/
 [Redis.io]: https://img.shields.io/badge/Redis-%23DC382D.svg?style=for-the-badge&logo=redis&logoColor=white
 [Redis-url]: https://redis.io/
-[MariaDB.org]: https://img.shields.io/badge/MariaDB-%2300f.svg?style=for-the-badge&logo=mariadb&logoColor=white
-[MariaDB-url]: https://mariadb.org/
+[DynamoDB.org]: https://img.shields.io/badge/Amazon%20DynamoDB-4053D6?style=for-the-badge&logo=Amazon%20DynamoDB&logoColor=white
+[DynamoDB-url]: https://docs.aws.amazon.com/dynamodb
 [Maven.Apache]: https://img.shields.io/badge/Maven-C71A36?style=for-the-badge&logo=apache-maven&logoColor=white
 [Maven-url]: https://maven.apache.org/
