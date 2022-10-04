@@ -27,7 +27,7 @@
 <h3 align="center">AWS Project Consumer</h3>
 
   <p align="center">
-    Project consumer that read logs and events from a SQS filled by the previous application and saves them in a NoSQL database (Dynamo DB).
+    Project consumer that read logs and events from a SQS.
     <br />
     <a href="https://github.com/gabriellourenco12/aws-java-project"><strong>Explore the docs »</strong></a>
     <br />
@@ -74,7 +74,7 @@
 
 ![Product Name Screen Shot][product-screenshot]
 
-This project was developed during the AWS Developer Associate course. The project consists of a product controller that stores sales in a database and sends an email to the customer. Also is possible to list all products, get a specific product by id and input invoices at bucket S3.
+This project was developed during the AWS Developer Associate course. The project is a continuation of the previous application. It consists in a consumer that read logs and events from a Amazon SQS filled by the other application and saves them in Dynamo DB.
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
